@@ -44,7 +44,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dustin/go-humanize"
 	jsoniter "github.com/json-iterator/go"
 	log "github.com/sirupsen/logrus"
 
@@ -371,20 +370,25 @@ func randString(n int, src rand.Source, prefix string) string {
 	return prefix + string(b[0:30-len(prefix)])
 }
 
+const (
+	kib = 1024
+	mib = kib * 1024
+)
+
 var dataFileMap = map[string]int{
 	"datafile-0-b":     0,
 	"datafile-1-b":     1,
-	"datafile-1-kB":    1 * humanize.KiByte,
-	"datafile-10-kB":   10 * humanize.KiByte,
-	"datafile-33-kB":   33 * humanize.KiByte,
-	"datafile-100-kB":  100 * humanize.KiByte,
-	"datafile-1.03-MB": 1056 * humanize.KiByte,
-	"datafile-1-MB":    1 * humanize.MiByte,
-	"datafile-5-MB":    5 * humanize.MiByte,
-	"datafile-6-MB":    6 * humanize.MiByte,
-	"datafile-11-MB":   11 * humanize.MiByte,
-	"datafile-65-MB":   65 * humanize.MiByte,
-	"datafile-129-MB":  129 * humanize.MiByte,
+	"datafile-1-kB":    1 * kib,
+	"datafile-10-kB":   10 * kib,
+	"datafile-33-kB":   33 * kib,
+	"datafile-100-kB":  100 * kib,
+	"datafile-1.03-MB": 1056 * kib,
+	"datafile-1-MB":    1 * mib,
+	"datafile-5-MB":    5 * mib,
+	"datafile-6-MB":    6 * mib,
+	"datafile-11-MB":   11 * mib,
+	"datafile-65-MB":   65 * mib,
+	"datafile-129-MB":  129 * mib,
 }
 
 var dataFileCRC32 = map[string]uint32{}
@@ -6513,7 +6517,7 @@ func testPutObjectUploadSeekedObject() {
 		// Seek back to the beginning of the file.
 		tempfile.Seek(0, 0)
 	}
-	length := 100 * humanize.KiByte
+	length := 100 * 1024
 	objectName := fmt.Sprintf("test-file-%v", rand.Uint32())
 	args["objectName"] = objectName
 

@@ -3,7 +3,6 @@ module github.com/minio/minio-go/v7
 go 1.17
 
 require (
-	github.com/dustin/go-humanize v1.0.0
 	github.com/google/uuid v1.1.1
 	github.com/json-iterator/go v1.1.12
 	github.com/klauspost/compress v1.13.5
